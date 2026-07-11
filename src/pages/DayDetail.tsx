@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTrips } from '../hooks/useTrips'
 import { useDirty } from '../components/Layout'
 import type { Day } from '../types'
-import { generateId } from '../types'
+import { generateId, todayISO } from '../types'
 
 export default function DayDetail() {
   const { tripId, dayId } = useParams<{ tripId: string; dayId: string }>()
@@ -20,11 +20,13 @@ export default function DayDetail() {
 
   const [title, setTitle] = useState(existingDay?.title ?? '')
   const [description, setDescription] = useState(existingDay?.description ?? '')
+  const [date, setDate] = useState(existingDay?.date ?? todayISO())
   const [lat, setLat] = useState<number | undefined>(existingDay?.lat)
   const [lng, setLng] = useState<number | undefined>(existingDay?.lng)
 
   const initialTitle = useRef(title)
   const initialDescription = useRef(description)
+  const initialDate = useRef(date)
   const initialLat = useRef(lat)
   const initialLng = useRef(lng)
 
@@ -32,10 +34,12 @@ export default function DayDetail() {
     if (!existingDay) return
     setTitle(existingDay.title)
     setDescription(existingDay.description)
+    setDate(existingDay.date)
     setLat(existingDay.lat)
     setLng(existingDay.lng)
     initialTitle.current = existingDay.title
     initialDescription.current = existingDay.description
+    initialDate.current = existingDay.date
     initialLat.current = existingDay.lat
     initialLng.current = existingDay.lng
   }, [existingDay?.id])
@@ -43,6 +47,7 @@ export default function DayDetail() {
   const hasChanges =
     title !== initialTitle.current ||
     description !== initialDescription.current ||
+    date !== initialDate.current ||
     lat !== initialLat.current ||
     lng !== initialLng.current
 
@@ -83,6 +88,7 @@ export default function DayDetail() {
         id: generateId(),
         title: trimmedTitle,
         description,
+        date,
         lat,
         lng,
         createdAt: now,
@@ -103,7 +109,7 @@ export default function DayDetail() {
                 ...t,
                 days: t.days.map((d) =>
                   d.id === dayId
-                    ? { ...d, title: trimmedTitle, description, lat, lng, updatedAt: now }
+                    ? { ...d, title: trimmedTitle, description, date, lat, lng, updatedAt: now }
                     : d,
                 ),
                 updatedAt: now,
@@ -149,6 +155,17 @@ export default function DayDetail() {
 
       <div className="mt-5 overflow-hidden rounded-[10px] bg-white dark:bg-[#1C1C1E]">
         <div className="divide-y divide-[#C6C6C8]/50 dark:divide-[#38383A]/50">
+          <div className="flex items-center px-4 py-[13px]">
+            <label className="shrink-0 text-[13px] font-semibold uppercase tracking-[0.04em] text-[#8E8E93] w-[54px]">
+              Fecha
+            </label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className="min-h-0 flex-1 bg-transparent text-[17px] text-[#1C1C1E] outline-none dark:text-white [color-scheme:light] dark:[color-scheme:dark]"
+            />
+          </div>
           <div className="px-4 py-[13px]">
             <label className="block text-[13px] font-semibold uppercase tracking-[0.04em] text-[#8E8E93]">
               Título

@@ -151,6 +151,9 @@ export default function TripDetail() {
                     <p className="text-[17px] text-[#1C1C1E] dark:text-white truncate mt-[1px]">
                       {day.title || '(sin título)'}
                     </p>
+                    {day.date && (
+                      <span className="text-[12px] text-[#8E8E93]">{day.date}</span>
+                    )}
                   </div>
                   <svg className="h-4 w-4 shrink-0 text-[#C6C6C8] dark:text-[#48484A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
