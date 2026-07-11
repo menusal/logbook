@@ -26,7 +26,7 @@ export default function TripDetail() {
 
   if (!trip || !tripId) {
     return (
-      <div className="mt-16 text-center text-sm text-slate-400">
+      <div className="mt-16 text-center text-sm text-slate-400 dark:text-slate-500">
         Viaje no encontrado.
       </div>
     )
@@ -92,7 +92,7 @@ export default function TripDetail() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="min-h-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-base font-medium outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+            className="min-h-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-base font-medium outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
           />
           <button
             onClick={handleSaveTitle}
@@ -116,7 +116,7 @@ export default function TripDetail() {
         </button>
         <button
           onClick={handleExport}
-          className="flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50"
+          className="flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:active:bg-slate-700"
         >
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
@@ -125,12 +125,12 @@ export default function TripDetail() {
         </button>
       </div>
 
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500">
+      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
         Días / Etapas
       </h2>
 
       {trip.days.length === 0 && (
-        <div className="mt-8 text-center text-sm text-slate-400">
+        <div className="mt-8 text-center text-sm text-slate-400 dark:text-slate-500">
           Aún no hay días registrados.
         </div>
       )}
@@ -141,17 +141,17 @@ export default function TripDetail() {
             <SwipeableItem onDelete={() => handleDeleteDay(day.id)}>
               <button
                 onClick={() => navigate(`/trip/${tripId}/day/${day.id}`)}
-                className="flex w-full items-center justify-between rounded-xl bg-white px-4 py-4 text-left shadow-sm ring-1 ring-slate-200 active:bg-slate-50"
+                className="flex w-full items-center justify-between rounded-xl bg-white px-4 py-4 text-left shadow-sm ring-1 ring-slate-200 active:bg-slate-50 dark:bg-slate-800 dark:ring-slate-700 dark:active:bg-slate-700"
               >
                 <div className="min-w-0 flex-1">
                   <span className="text-xs font-medium text-blue-600">
                     Día {i + 1}
                   </span>
-                  <p className="truncate font-medium text-slate-900">
+                  <p className="truncate font-medium text-slate-900 dark:text-slate-100">
                     {day.title || '(sin título)'}
                   </p>
                 </div>
-                <svg className="ml-2 h-5 w-5 shrink-0 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="ml-2 h-5 w-5 shrink-0 text-slate-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </button>

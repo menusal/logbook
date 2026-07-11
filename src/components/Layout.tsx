@@ -40,7 +40,24 @@ interface LayoutProps {
   showBack?: boolean
 }
 
+function useThemeColor() {
+  useEffect(() => {
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (!meta) return
+
+    const update = (e: MediaQueryListEvent | MediaQueryList) => {
+      meta.setAttribute('content', e.matches ? '#0f172a' : '#f8fafc')
+    }
+
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    update(mq)
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+}
+
 export default function Layout({ children, title, showBack }: LayoutProps) {
+  useThemeColor()
   const navigate = useNavigate()
   const location = useLocation()
   const { isDirty, setDirty, dirtyRef } = useDirty()
@@ -98,12 +115,12 @@ export default function Layout({ children, title, showBack }: LayoutProps) {
   }
 
   return (
-    <div className="mx-auto flex min-h-dvh max-w-lg flex-col bg-slate-50" style={{ paddingTop: 'var(--safe-top)', paddingBottom: 'var(--safe-bottom)' }}>
-      <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur-md">
+    <div className="mx-auto flex min-h-dvh max-w-lg flex-col bg-slate-50 dark:bg-slate-900" style={{ paddingTop: 'var(--safe-top)', paddingBottom: 'var(--safe-bottom)' }}>
+      <header className="sticky top-0 z-30 flex items-center gap-3 border-b border-slate-200 bg-white/90 px-4 py-3 backdrop-blur-md dark:border-slate-700 dark:bg-slate-800/90">
         {(showBack ?? defaultBack) && (
           <button
             onClick={handleBack}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-700 active:bg-slate-100"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-700 active:bg-slate-100 dark:text-slate-300 dark:active:bg-slate-700"
             aria-label="Volver"
           >
             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -111,7 +128,7 @@ export default function Layout({ children, title, showBack }: LayoutProps) {
             </svg>
           </button>
         )}
-        <h1 className="text-lg font-semibold text-slate-900">{title ?? 'Bitácora'}</h1>
+        <h1 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title ?? 'Bitácora'}</h1>
       </header>
 
       <main className="flex-1 px-4 py-5">{children}</main>

@@ -119,7 +119,7 @@ export default function DayDetail() {
 
   if (!trip || (!isNew && !existingDay)) {
     return (
-      <div className="mt-16 text-center text-sm text-slate-400">
+      <div className="mt-16 text-center text-sm text-slate-400 dark:text-slate-500">
         Día no encontrado.
       </div>
     )
@@ -131,7 +131,7 @@ export default function DayDetail() {
         <button
           onClick={handleLocate}
           disabled={locating}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50 disabled:opacity-50"
+          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:active:bg-slate-700"
         >
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -140,7 +140,7 @@ export default function DayDetail() {
           {locating ? 'Obteniendo ubicación...' : 'Obtener ubicación actual'}
         </button>
         {lat != null && lng != null && (
-          <p className="mt-2 text-center text-xs text-slate-500">
+          <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
             📍 {lat.toFixed(6)}, {lng.toFixed(6)}
           </p>
         )}
@@ -150,7 +150,7 @@ export default function DayDetail() {
       </div>
 
       <div className="mb-4">
-        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Título
         </label>
         <input
@@ -158,12 +158,12 @@ export default function DayDetail() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Título del día / etapa"
-          className="min-h-0 w-full rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+          className="min-h-0 w-full rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500"
         />
       </div>
 
       <div className="mb-6">
-        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
           Descripción
         </label>
         <textarea
@@ -171,7 +171,7 @@ export default function DayDetail() {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="¿Qué pasó hoy?"
           rows={8}
-          className="min-h-0 w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+          className="min-h-0 w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500"
         />
       </div>
 
