@@ -1,15 +1,17 @@
-import { createContext, useContext, useState, useRef, useEffect, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useRef, useEffect, useCallback, type ReactNode, type MutableRefObject } from 'react'
 import { useNavigate, useLocation, useBlocker } from 'react-router-dom'
 import ConfirmDialog from './ConfirmDialog'
 
 interface DirtyContextType {
   isDirty: boolean
   setDirty: (d: boolean) => void
+  dirtyRef: MutableRefObject<boolean>
 }
 
 const DirtyContext = createContext<DirtyContextType>({
   isDirty: false,
   setDirty: () => {},
+  dirtyRef: { current: false } as MutableRefObject<boolean>,
 })
 
 export function useDirty() {
@@ -18,10 +20,15 @@ export function useDirty() {
 
 export function DirtyProvider({ children }: { children: ReactNode }) {
   const [isDirty, setIsDirty] = useState(false)
-  const setDirty = useCallback((d: boolean) => setIsDirty(d), [])
+  const dirtyRef = useRef(false)
+
+  const setDirty = useCallback((d: boolean) => {
+    dirtyRef.current = d
+    setIsDirty(d)
+  }, [])
 
   return (
-    <DirtyContext.Provider value={{ isDirty, setDirty }}>
+    <DirtyContext.Provider value={{ isDirty, setDirty, dirtyRef }}>
       {children}
     </DirtyContext.Provider>
   )
@@ -36,13 +43,13 @@ interface LayoutProps {
 export default function Layout({ children, title, showBack }: LayoutProps) {
   const navigate = useNavigate()
   const location = useLocation()
-  const { isDirty, setDirty } = useDirty()
+  const { isDirty, setDirty, dirtyRef } = useDirty()
   const [blockerOpen, setBlockerOpen] = useState(false)
   const pendingNav = useRef<(() => void) | null>(null)
 
   const blocker = useBlocker(
     ({ currentLocation, nextLocation }) =>
-      isDirty && currentLocation.pathname !== nextLocation.pathname,
+      dirtyRef.current && currentLocation.pathname !== nextLocation.pathname,
   )
 
   useEffect(() => {
