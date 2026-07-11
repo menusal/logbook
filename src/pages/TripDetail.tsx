@@ -26,7 +26,7 @@ export default function TripDetail() {
 
   if (!trip || !tripId) {
     return (
-      <div className="mt-16 text-center text-sm text-slate-400 dark:text-slate-500">
+      <div className="mt-20 text-center text-[15px] text-[#8E8E93]">
         Viaje no encontrado.
       </div>
     )
@@ -86,85 +86,87 @@ export default function TripDetail() {
 
   return (
     <>
-      <div className="mb-6">
-        <div className="flex gap-3">
+      <div className="overflow-hidden rounded-[10px] bg-white dark:bg-[#1C1C1E]">
+        <div className="flex items-center gap-2 px-4 py-[13px]">
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="min-h-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-base font-medium outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
+            className="min-h-0 flex-1 bg-transparent text-[17px] font-semibold text-[#1C1C1E] outline-none dark:text-white"
           />
           <button
             onClick={handleSaveTitle}
-            disabled={!title.trim()}
-            className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-sm transition-all active:bg-blue-700 disabled:opacity-40"
+            disabled={!title.trim() || !hasChanges}
+            className="rounded-[8px] bg-ios-blue px-4 py-[7px] text-[15px] font-semibold text-white active:bg-[#0062CC] disabled:opacity-40"
           >
             Guardar
           </button>
         </div>
       </div>
 
-      <div className="mb-6 flex gap-3">
+      <div className="mt-5 flex gap-2">
         <button
           onClick={handleNewDay}
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-sm font-medium text-white shadow-sm active:bg-blue-700"
+          className="flex flex-1 items-center justify-center gap-1.5 rounded-[10px] bg-ios-blue py-[13px] text-[15px] font-semibold text-white shadow-sm active:bg-[#0062CC]"
         >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
           </svg>
           Nuevo día
         </button>
         <button
           onClick={handleExport}
-          className="flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:active:bg-slate-700"
+          className="flex items-center justify-center gap-1.5 rounded-[10px] bg-white px-5 py-[13px] text-[15px] font-semibold text-ios-blue shadow-sm active:bg-[#F2F2F7] dark:bg-[#1C1C1E] dark:active:bg-[#2C2C2E]"
         >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
           </svg>
           {copied ? 'Copiado' : 'Exportar'}
         </button>
       </div>
 
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <h2 className="mt-7 mb-[7px] px-1 text-[13px] font-semibold uppercase tracking-[0.04em] text-[#8E8E93]">
         Días / Etapas
       </h2>
 
       {trip.days.length === 0 && (
-        <div className="mt-8 text-center text-sm text-slate-400 dark:text-slate-500">
+        <div className="mt-10 text-center text-[15px] text-[#8E8E93]">
           Aún no hay días registrados.
         </div>
       )}
 
-      <ul className="flex flex-col gap-3">
-        {trip.days.map((day, i) => (
-          <li key={day.id}>
-            <SwipeableItem onDelete={() => handleDeleteDay(day.id)}>
-              <button
-                onClick={() => navigate(`/trip/${tripId}/day/${day.id}`)}
-                className="flex w-full items-center justify-between rounded-xl bg-white px-4 py-4 text-left shadow-sm ring-1 ring-slate-200 active:bg-slate-50 dark:bg-slate-800 dark:ring-slate-700 dark:active:bg-slate-700"
-              >
-                <div className="min-w-0 flex-1">
-                  <span className="text-xs font-medium text-blue-600">
-                    Día {i + 1}
-                  </span>
-                  <p className="truncate font-medium text-slate-900 dark:text-slate-100">
-                    {day.title || '(sin título)'}
-                  </p>
-                </div>
-                <svg className="ml-2 h-5 w-5 shrink-0 text-slate-300 dark:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </SwipeableItem>
-          </li>
-        ))}
-      </ul>
+      <div className="overflow-hidden rounded-[10px] bg-white dark:bg-[#1C1C1E]">
+        <ul className="divide-y divide-[#C6C6C8]/50 dark:divide-[#38383A]/50">
+          {trip.days.map((day, i) => (
+            <li key={day.id}>
+              <SwipeableItem onDelete={() => handleDeleteDay(day.id)}>
+                <button
+                  onClick={() => navigate(`/trip/${tripId}/day/${day.id}`)}
+                  className="flex w-full items-center px-4 py-[13px] text-left active:bg-[#F2F2F7] dark:active:bg-[#2C2C2E]"
+                >
+                  <div className="flex-1 min-w-0 pr-2">
+                    <span className="text-[13px] font-medium text-ios-blue">
+                      Día {i + 1}
+                    </span>
+                    <p className="text-[17px] text-[#1C1C1E] dark:text-white truncate mt-[1px]">
+                      {day.title || '(sin título)'}
+                    </p>
+                  </div>
+                  <svg className="h-4 w-4 shrink-0 text-[#C6C6C8] dark:text-[#48484A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </SwipeableItem>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {deleteTarget && (
         <ConfirmDialog
           title="Eliminar día"
-          message="¿Estás seguro de eliminar este día? Esta acción no se puede deshacer."
-          confirmLabel="Eliminar"
+          message="Esta acción no se puede deshacer."
+          confirmLabel="Eliminar día"
           cancelLabel="Cancelar"
           danger
           onConfirm={confirmDeleteDay}

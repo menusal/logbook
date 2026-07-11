@@ -40,20 +40,20 @@ export default function Home() {
 
   return (
     <>
-      <div className="mb-6">
-        <div className="flex gap-3">
+      <div className="mb-5">
+        <div className="flex gap-2">
           <input
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="Nuevo viaje..."
-            className="min-h-0 flex-1 rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500"
+            className="min-h-0 flex-1 rounded-[10px] bg-white px-4 py-[13px] text-[17px] text-[#1C1C1E] outline-none transition-colors focus:ring-2 focus:ring-ios-blue/30 dark:bg-[#1C1C1E] dark:text-white dark:placeholder:text-[#8E8E93]"
             onKeyDown={(e) => e.key === 'Enter' && handleCreate()}
           />
           <button
             onClick={handleCreate}
             disabled={!newTitle.trim()}
-            className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-sm transition-all active:bg-blue-700 disabled:opacity-40"
+            className="rounded-[10px] bg-ios-blue px-5 py-[13px] text-[15px] font-semibold text-white shadow-sm transition-all active:bg-[#0062CC] disabled:opacity-40"
           >
             Crear
           </button>
@@ -61,34 +61,41 @@ export default function Home() {
       </div>
 
       {trips.length === 0 && (
-        <div className="mt-16 text-center text-sm text-slate-400 dark:text-slate-500">
+        <div className="mt-20 text-center text-[15px] text-[#8E8E93]">
           No hay viajes aún. Crea uno arriba.
         </div>
       )}
 
-      <ul className="flex flex-col gap-3">
-        {trips.map((trip) => (
-          <li key={trip.id}>
-            <SwipeableItem onDelete={() => setDeleteTarget(trip)}>
-              <button
-                onClick={() => handleEdit(trip)}
-                className="flex w-full items-center justify-between rounded-xl bg-white px-4 py-4 text-left shadow-sm ring-1 ring-slate-200 active:bg-slate-50 dark:bg-slate-800 dark:ring-slate-700 dark:active:bg-slate-700"
-              >
-                <span className="font-medium text-slate-900 dark:text-slate-100">{trip.title}</span>
-                <span className="shrink-0 text-xs text-slate-400 dark:text-slate-500">
-                  {trip.days.length} {trip.days.length === 1 ? 'día' : 'días'}
-                </span>
-              </button>
-            </SwipeableItem>
-          </li>
-        ))}
-      </ul>
+      <div className="overflow-hidden rounded-[10px] bg-white dark:bg-[#1C1C1E]">
+        <ul className="divide-y divide-[#C6C6C8]/50 dark:divide-[#38383A]/50">
+          {trips.map((trip) => (
+            <li key={trip.id}>
+              <SwipeableItem onDelete={() => setDeleteTarget(trip)}>
+                <button
+                  onClick={() => handleEdit(trip)}
+                  className="flex w-full items-center px-4 py-[13px] text-left active:bg-[#F2F2F7] dark:active:bg-[#2C2C2E]"
+                >
+                  <div className="flex-1 min-w-0 pr-2">
+                    <span className="block text-[17px] text-[#1C1C1E] dark:text-white truncate">{trip.title}</span>
+                    <span className="block text-[13px] text-[#8E8E93] mt-[2px]">
+                      {trip.days.length} {trip.days.length === 1 ? 'día' : 'días'}
+                    </span>
+                  </div>
+                  <svg className="h-4 w-4 shrink-0 text-[#C6C6C8] dark:text-[#48484A]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </SwipeableItem>
+            </li>
+          ))}
+        </ul>
+      </div>
 
       {deleteTarget && (
         <ConfirmDialog
-          title="Eliminar viaje"
-          message={`¿Estás seguro de eliminar "${deleteTarget.title}"? Esta acción no se puede deshacer.`}
-          confirmLabel="Eliminar"
+          title={`Eliminar “${deleteTarget.title}”`}
+          message="Esta acción no se puede deshacer."
+          confirmLabel="Eliminar viaje"
           cancelLabel="Cancelar"
           danger
           onConfirm={confirmDelete}

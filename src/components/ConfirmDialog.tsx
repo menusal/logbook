@@ -18,24 +18,28 @@ export default function ConfirmDialog({
   onCancel,
 }: ConfirmDialogProps) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-xl dark:bg-slate-800">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{title}</h2>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">{message}</p>
-        <div className="mt-6 flex gap-3">
-          <button
-            onClick={onCancel}
-            className="flex-1 rounded-xl border border-slate-300 py-3 text-sm font-medium text-slate-700 active:bg-slate-100 dark:border-slate-600 dark:text-slate-300 dark:active:bg-slate-700"
-          >
-            {cancelLabel}
-          </button>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-8">
+      <div className="w-full max-w-xs rounded-[14px] bg-[#F2F2F7]/90 backdrop-blur-md dark:bg-[#1C1C1E]/95">
+        <div className="px-4 py-5 text-center">
+          <h2 className="text-[17px] font-semibold text-[#1C1C1E] dark:text-white">{title}</h2>
+          <p className="mt-1 text-[13px] text-[#8E8E93] leading-relaxed">{message}</p>
+        </div>
+        <div className="border-t border-[#C6C6C8]/50 dark:border-[#38383A]/50">
           <button
             onClick={onConfirm}
-            className={`flex-1 rounded-xl py-3 text-sm font-medium text-white active:opacity-90 ${
-              danger ? 'bg-red-600' : 'bg-blue-600'
+            className={`w-full py-[13px] text-center text-[17px] font-semibold active:bg-black/5 dark:active:bg-white/10 ${
+              danger ? 'text-ios-red' : 'text-ios-blue'
             }`}
           >
             {confirmLabel}
+          </button>
+        </div>
+        <div className="border-t border-[#C6C6C8]/50 dark:border-[#38383A]/50">
+          <button
+            onClick={onCancel}
+            className="w-full py-[13px] text-center text-[17px] font-semibold text-ios-blue active:bg-black/5 dark:active:bg-white/10"
+          >
+            {cancelLabel}
           </button>
         </div>
       </div>

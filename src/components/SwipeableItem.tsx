@@ -42,7 +42,7 @@ export default function SwipeableItem({ children, onDelete }: SwipeableItemProps
   }
 
   return (
-    <div className="relative overflow-hidden rounded-xl">
+    <div className="relative overflow-hidden rounded-[10px]">
       <div
         style={{ transform: `translateX(${translateX}px)` }}
         className="transition-transform duration-200 ease-out"
@@ -55,7 +55,7 @@ export default function SwipeableItem({ children, onDelete }: SwipeableItemProps
       {revealed && (
         <button
           onClick={handleDelete}
-          className="absolute right-0 top-0 flex h-full w-[120px] items-center justify-center bg-red-600 text-sm font-medium text-white"
+          className="absolute right-0 top-0 flex h-full w-[120px] items-center justify-center bg-ios-red text-[15px] font-semibold text-white"
         >
           Eliminar
         </button>

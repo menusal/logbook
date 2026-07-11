@@ -119,7 +119,7 @@ export default function DayDetail() {
 
   if (!trip || (!isNew && !existingDay)) {
     return (
-      <div className="mt-16 text-center text-sm text-slate-400 dark:text-slate-500">
+      <div className="mt-20 text-center text-[15px] text-[#8E8E93]">
         Día no encontrado.
       </div>
     )
@@ -127,60 +127,61 @@ export default function DayDetail() {
 
   return (
     <>
-      <div className="mb-6">
-        <button
-          onClick={handleLocate}
-          disabled={locating}
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm active:bg-slate-50 disabled:opacity-50 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-300 dark:active:bg-slate-700"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          {locating ? 'Obteniendo ubicación...' : 'Obtener ubicación actual'}
-        </button>
-        {lat != null && lng != null && (
-          <p className="mt-2 text-center text-xs text-slate-500 dark:text-slate-400">
-            📍 {lat.toFixed(6)}, {lng.toFixed(6)}
-          </p>
-        )}
-        {locError && (
-          <p className="mt-2 text-center text-xs text-red-500">{locError}</p>
-        )}
-      </div>
+      <button
+        onClick={handleLocate}
+        disabled={locating}
+        className="flex w-full items-center justify-center gap-1.5 rounded-[10px] bg-white py-[13px] text-[15px] font-semibold text-ios-blue shadow-sm active:bg-[#F2F2F7] disabled:opacity-50 dark:bg-[#1C1C1E] dark:active:bg-[#2C2C2E]"
+      >
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        {locating ? 'Obteniendo ubicación...' : 'Obtener ubicación'}
+      </button>
+      {lat != null && lng != null && (
+        <p className="mt-2 text-center text-[13px] text-[#8E8E93]">
+          📍 {lat.toFixed(6)}, {lng.toFixed(6)}
+        </p>
+      )}
+      {locError && (
+        <p className="mt-2 text-center text-[13px] text-ios-red">{locError}</p>
+      )}
 
-      <div className="mb-4">
-        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Título
-        </label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Título del día / etapa"
-          className="min-h-0 w-full rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500"
-        />
-      </div>
-
-      <div className="mb-6">
-        <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Descripción
-        </label>
-        <textarea
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="¿Qué pasó hoy?"
-          rows={8}
-          className="min-h-0 w-full resize-none rounded-xl border border-slate-300 px-4 py-3 text-base outline-none transition-colors focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100 dark:placeholder:text-slate-500"
-        />
+      <div className="mt-5 overflow-hidden rounded-[10px] bg-white dark:bg-[#1C1C1E]">
+        <div className="divide-y divide-[#C6C6C8]/50 dark:divide-[#38383A]/50">
+          <div className="px-4 py-[13px]">
+            <label className="block text-[13px] font-semibold uppercase tracking-[0.04em] text-[#8E8E93]">
+              Título
+            </label>
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Título del día / etapa"
+              className="mt-1 min-h-0 w-full bg-transparent text-[17px] text-[#1C1C1E] outline-none placeholder:text-[#C6C6C8] dark:text-white dark:placeholder:text-[#48484A]"
+            />
+          </div>
+          <div className="px-4 py-[13px]">
+            <label className="block text-[13px] font-semibold uppercase tracking-[0.04em] text-[#8E8E93]">
+              Descripción
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="¿Qué pasó hoy?"
+              rows={6}
+              className="mt-1 min-h-0 w-full resize-none bg-transparent text-[17px] text-[#1C1C1E] outline-none placeholder:text-[#C6C6C8] dark:text-white dark:placeholder:text-[#48484A]"
+            />
+          </div>
+        </div>
       </div>
 
       <button
         onClick={handleSave}
         disabled={!title.trim()}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-4 text-base font-medium text-white shadow-sm transition-all active:bg-blue-700 disabled:opacity-40"
+        className="mt-5 flex w-full items-center justify-center gap-1.5 rounded-[10px] bg-ios-blue py-[13px] text-[17px] font-semibold text-white shadow-sm transition-all active:bg-[#0062CC] disabled:opacity-40"
       >
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
         </svg>
         {isNew ? 'Crear día' : 'Guardar cambios'}
